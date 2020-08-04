@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>VUE step by step</title>
+    </head>
+
+    <style>
+        .color-red {
+            color: red
+        }
+
+        .color-blue {
+            color: blue
+        }
+    </style>
+
+    <body>
+        <div id="root">
+            <h1 :class="className">
+                TEST
+            </h1>
+
+
+            <input type="text" id="input" v-model="message">
+
+            <p>
+                The value of the input is: {{ message }}
+            </p>
+            <ul>
+              <li v-for="name in names" v-text="name">
+                  {{ name }}
+              </li>
+            </ul>
+            <input type="text" v-model="newName">
+            <button @click="addName">
+                Add Name
+            </button>
+
+            <!-- for v-bind -->
+            <button :title="btnTitle">
+                Button title
+            </button>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script>
+
+            new Vue({
+                el: '#root',
+                data: {
+                    message: '',
+                    newName: '',
+                    names: ['Abrar', 'Cliff', 'Anas'],
+                    btnTitle: 'Button my title',
+                    className: 'color-blue'
+                },
+
+                // add all custom method here
+                methods: {
+                    addName() {
+                        this.names.push(this.newName);
+                        this.newName = '';
+                    }
+                },
+                // called this method when components all ready to render
+                mounted () {
+
+                }
+            })
+
+        </script>
+    </body>
+</html>
+
