@@ -19,6 +19,10 @@
                 TEST
             </h1>
 
+            <button :class="{ 'is-loading': isLoading }" @click="toggleClass">
+                Click Me to toggle
+            </button>
+
 
             <input type="text" id="input" v-model="message">
 
@@ -52,7 +56,8 @@
                     newName: '',
                     names: ['Abrar', 'Cliff', 'Anas'],
                     btnTitle: 'Button my title',
-                    className: 'color-blue'
+                    className: 'color-blue',
+                    isLoading: false
                 },
 
                 // add all custom method here
@@ -60,12 +65,20 @@
                     addName() {
                         this.names.push(this.newName);
                         this.newName = '';
+                    },
+
+                    // toggle
+                    toggleClass () {
+                        this.isLoading = !this.isLoading;
                     }
                 },
+
                 // called this method when components all ready to render
                 mounted () {
 
-                }
+                },
+
+
             })
 
         </script>
