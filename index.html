@@ -17,7 +17,40 @@
         <div id="root">
             <h1 :class="className">
                 TEST
-            </h1>
+						</h1>
+						
+
+						<h2>
+							To-Do List:
+						</h2>
+
+						<ul>
+							<li v-for="task in taskList">
+								{{ task.title }}
+
+								<span>
+									{{ task.complete ? 'Done' : 'To-Do' }}
+								</span>
+
+								<button>
+									done
+								</button>
+							</li>
+						</ul>
+
+
+						<h2>
+							Done list:
+						</h2>
+
+						<ul>
+							<li v-for="task in completedTasks">
+								{{ task.title }}
+								<button @click="doneTask(task.id)">
+									done
+								</button>
+							</li>
+						</ul>
 
             <button :class="{ 'is-loading': isLoading }" @click="toggleClass">
                 Click Me to toggle
@@ -28,12 +61,14 @@
 
             <p>
                 The value of the input is: {{ message }}
-            </p>
+						</p>
+						
             <ul>
               <li v-for="name in names" v-text="name">
                   {{ name }}
               </li>
-            </ul>
+						</ul>
+						
             <input type="text" v-model="newName">
             <button @click="addName">
                 Add Name
@@ -57,7 +92,15 @@
                     names: ['Abrar', 'Cliff', 'Anas'],
                     btnTitle: 'Button my title',
                     className: 'color-blue',
-                    isLoading: false
+                    isLoading: false,
+										taskList: {
+											"1": {
+												title: 'Eat Meat', complete: false
+											},
+											"2": {
+												title: 'Learn Python3', complete: true
+											}
+										}
                 },
 
                 // add all custom method here
@@ -70,14 +113,35 @@
                     // toggle
                     toggleClass () {
                         this.isLoading = !this.isLoading;
-                    }
+                    },
+										
+										// update status of a task
+										updateStatus (id) {
+											
+										},
+
+										// set a task status to done
+										doneTask (id) {
+											this.taskList[id].complete = true;
+										}
                 },
 
                 // called this method when components all ready to render
                 mounted () {
-
+									
                 },
 
+								computed: {
+									completedTasks () {
+										let result = [];
+										for (task in this.taskList) {
+											if (this.taskList[task].complete) {
+												result.push(this.taskList[task]);
+											}
+										}
+										return result;
+									}
+								}
 
             })
 
